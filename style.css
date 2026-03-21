@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #6495ED;
+  color: white;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+}
+
+header button {
+  margin-left: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.layout {
+  display: flex;
+  gap: 20px;
+}
+
+.filters {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.filters label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.filters input,
+.filters select {
+  width: 100%;
+  padding: 6px;
+  margin-top: 3px;
+}
+
+.filters button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  background: #6495ED;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.games-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.game-card {
+  border: 1px solid #ccc;
+  padding: 14px;
+  border-radius: 6px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.game-card h3 {
+  min-width: 150px;
+}
+
+.game-card p {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
+#add-form {
+  display: none;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+}
+
+#add-form input,
+#add-form select,
+#add-form textarea {
+  display: block;
+  width: 100%;
+  padding: 7px;
+  margin: 4px 0 10px;
+}
+
+#add-form button {
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+@media (max-width: 700px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .filters {
+    width: 100%;
+  }
+}

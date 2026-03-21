@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planszotopia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <b>Planszotopia</b>
+    <div>
+      <button id="login-btn" onclick="toggleLogin()">Zaloguj się</button>
+      <button>Koszyk</button>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <aside class="filters">
+      <b>Filtry</b>
+
+      <label>Cena od</label>
+      <input type="number" id="price-min" placeholder="0">
+
+      <label>Cena do</label>
+      <input type="number" id="price-max" placeholder="999">
+
+      <label>Rodzaj</label>
+      <select id="filter-type">
+        <option value="">Wszystkie</option>
+        <option value="karciana">Karciana</option>
+        <option value="strategia">Strategia</option>
+        <option value="imprezowa">Imprezowa</option>
+        <option value="przygodowa">Przygodowa</option>
+
+      </select>
+
+      <label>Min. graczy</label>
+      <input type="number" id="filter-players" placeholder="1">
+
+      <label>Wydawnictwo</label>
+      <input type="text" id="filter-publisher">
+
+      <label>Słowo w opisie</label>
+      <input type="text" id="filter-search">
+
+      <label>Max czas (min)</label>
+      <input type="number" id="filter-time">
+
+      <button onclick="applyFilters()">Szukaj</button>
+    </aside>
+
+    <div style="flex:1">
+
+      <button onclick="toggleForm()" style="margin-bottom:12px; padding:8px 16px; cursor:pointer;">
+        + Dodaj grę
+      </button>
+
+      <div id="add-form">
+        <b>Nowa gra</b>
+        <label>Nazwa</label>      <input id="n-name">
+        <label>Rodzaj</label>
+        <select id="n-type">
+          <option value="">Wszystkie</option>
+          <option value="karciana">Karciana</option>
+          <option value="strategia">Strategia</option>
+          <option value="imprezowa">Imprezowa</option>
+          <option value="przygodowa">Przygodowa</option>
+
+        </select>
+        <label>Wydawnictwo</label><input id="n-pub">
+        <label>Graczy</label>     <input type="number" id="n-players">
+        <label>Czas (min)</label> <input type="number" id="n-time">
+        <label>Cena (zł)</label>  <input type="number" id="n-price">
+        <label>Opis</label>       <textarea id="n-desc"></textarea>
+        <button onclick="addGame()">Dodaj</button>
+        <button onclick="toggleForm()">Anuluj</button>
+      </div>
+
+      <div class="games-grid" id="games-grid"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const games = [
+  {
+    name: "Uno",
+    type: "Karciana",
+    players: 10,
+    publisher: "Mattel",
+    time: 30,
+    price: 29,
+    desc: "Klasyczna gra karciana, w której gracze pozbywają się kart przez dobieranie kolorów i cyfr."
+  },
+  {
+    name: "Catan",
+    type: "Strategia",
+    players: 4,
+    publisher: "Rebel",
+    time: 120,
+    price: 149,
+    desc: "Gracze kolonizują wyspę Catan, zbierają surowce i budują osady."
+  },
+  {
+    name: "Hitster",
+    type: "Imprezowa",
+    players: 10,
+    publisher: "Jumbo",
+    time: 45,
+    price: 99,
+    desc: "Gra muzyczna, w której gracze układają piosenki w kolejności chronologicznej."
+  },
+  {
+    name: "Eksplodujące Kotki",
+    type: "Karciana",
+    players: 5,
+    publisher: "Rebel",
+    time: 15,
+    price: 89,
+    desc: "Szybka gra karciana, w której gracze ciągną karty i starają się unikać eksplodującego kotka, używając kart specjalnych."
+  },
+  {
+    name: "Wiedźmin: Stary Świat",
+    type: "Przygodowa",
+    players: 5,
+    publisher: "Go On Board",
+    time: 120,
+    price: 299,
+    desc: "Gra przygodowa osadzona w świecie Wiedźmina."
+  }
+];
+
+
+    function renderGames(list) {
+      const grid = document.getElementById('games-grid');
+      grid.innerHTML = list.length === 0 ? '<p>Brak wyników.</p>' : '';
+      list.forEach(g => {
+        grid.innerHTML += `
+          <div class="game-card">
+            <h3>${g.name}</h3>
+            <p>${g.type} | do ${g.players} graczy | ${g.time} min</p>
+            <p>${g.publisher}</p>
+            <p>${g.desc}</p>
+            <b>${g.price} zł</b>
+          </div>`;
+      });
+    }
+
+    function applyFilters() {
+      const minP    = +document.getElementById('price-min').value     || 0;
+      const maxP    = +document.getElementById('price-max').value     || Infinity;
+      const type    =  document.getElementById('filter-type').value;
+      const players = +document.getElementById('filter-players').value || 0;
+      const pub     =  document.getElementById('filter-publisher').value.toLowerCase();
+      const word    =  document.getElementById('filter-search').value.toLowerCase();
+      const maxT    = +document.getElementById('filter-time').value   || Infinity;
+
+      renderGames(games.filter(g =>
+        g.price >= minP && g.price <= maxP &&
+        (!type    || g.type === type) &&
+        (!players || g.players >= players) &&
+        (!pub     || g.publisher.toLowerCase().includes(pub)) &&
+        (!word    || g.desc.toLowerCase().includes(word) || g.name.toLowerCase().includes(word)) &&
+        g.time <= maxT
+      ));
+    }
+
+    function toggleLogin() {
+      const b = document.getElementById('login-btn');
+      b.textContent = b.textContent === 'Zaloguj się' ? 'Wyloguj się' : 'Zaloguj się';
+    }
+
+    function toggleForm() {
+      const f = document.getElementById('add-form');
+      f.style.display = f.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addGame() {
+      const name = document.getElementById('n-name').value.trim();
+      if (!name) { alert('Podaj nazwę!'); return; }
+      games.push({
+        name,
+        type:      document.getElementById('n-type').value,
+        publisher: document.getElementById('n-pub').value,
+        players:  +document.getElementById('n-players').value,
+        time:     +document.getElementById('n-time').value,
+        price:    +document.getElementById('n-price').value,
+        desc:      document.getElementById('n-desc').value
+      });
+      renderGames(games);
+      toggleForm();
+    }
+
+    renderGames(games);
+  </script>
+
+</body>
+</html>
