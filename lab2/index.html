@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToDo lab 2</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>TooooDooooo</h1>
+  </header>
+
+  <main>
+    <section class="controls-card">
+      <h2>Wyszukiwarka</h2>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Szukaj zadania..." class="calc-input" />
+        <label>
+          <input type="checkbox" id="search-case" /> Case-insensitive (ignoruj wielkość liter)
+        </label>
+      </div>
+
+      <hr class="divider" />
+
+      <h2>Dodaj nowe zadanie</h2>
+      <form action="#" onsubmit="return false;" class="add-task-form">
+        <input type="text" id="task-input" placeholder="Co jest do zrobienia?" class="calc-input" />
+        <select id="list-select" class="calc-input">
+          <option value="list-normal">Mało pilne</option>
+          <option value="list-urgent">Pilne</option>
+          <option value="list-asap">Na wczoraj!</option>
+        </select>
+        <button class="calc-button calc-button-primary" id="add-btn">Dodaj Zadanie</button>
+      </form>
+      
+      <button class="calc-button calc-button-undo" id="undo-btn" disabled>Cofnij usunięcie</button>
+    </section>
+
+    <section class="lists-wrapper">
+      <div class="list-card">
+        <h2 class="list-header" title="Kliknij, aby zwinąć/rozwinąć">Mało pilne (kliknij)</h2>
+        <ul id="list-normal" class="task-list"></ul>
+      </div>
+
+      <div class="list-card">
+        <h2 class="list-header" title="Kliknij, aby zwinąć/rozwinąć">Pilne (kliknij)</h2>
+        <ul id="list-urgent" class="task-list"></ul>
+      </div>
+
+      <div class="list-card">
+        <h2 class="list-header" title="Kliknij, aby zwinąć/rozwinąć">Na wczoraj!!! (kliknij)</h2>
+        <ul id="list-asap" class="task-list"></ul>
+      </div>
+    </section>
+
+    <dialog id="delete-modal" class="calc-card">
+      <h3>Potwierdzenie usunięcia</h3>
+      <p style="margin-bottom: 1rem;">
+        Czy na pewno chcesz usunąć zadanie o treści: <br>
+        <strong id="modal-task-text"></strong>
+      </p>
+      <form method="dialog" class="modal-buttons">
+        <button type="submit" value="yes" class="calc-button calc-button-danger">Tak</button>
+        <button type="submit" value="no" class="calc-button">Anuluj</button>
+      </form>
+    </dialog>
+
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>

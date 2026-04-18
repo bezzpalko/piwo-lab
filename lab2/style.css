@@ -1,0 +1,207 @@
+:root {
+  --calc-primary: #3b82f6;
+  --calc-primary-dark: #2563eb;
+  --calc-success: #25b15a;
+  --calc-danger: #ef4444;
+  --calc-bg: #f3f4f7;
+  --calc-surface: #ffffff;
+  --calc-text: #20232b;
+  --calc-text-muted: #64748b;
+  --calc-border: #dbe0e8;
+  --calc-button: #eff1f5;
+  --calc-button-hover: #e2e8f0;
+  --radius: 12px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --calc-bg: hsl(220, 20%, 10%);
+    --calc-surface: hsl(220, 20%, 16%);
+    --calc-text: hsl(220, 15%, 92%);
+    --calc-text-muted: hsl(220, 10%, 60%);
+    --calc-border: hsl(220, 15%, 25%);
+    --calc-button: hsl(220, 15%, 22%);
+    --calc-button-hover: hsl(220, 15%, 28%);
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 2rem;
+  background: var(--calc-bg);
+  color: var(--calc-text);
+}
+
+header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--calc-text-muted);
+  margin-bottom: 1rem;
+}
+
+.calc-card {
+  background: var(--calc-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.controls-card {
+  background: var(--calc-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.calc-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--calc-border);
+  border-radius: calc(var(--radius) - 4px);
+  background: var(--calc-bg);
+  color: var(--calc-text);
+  outline: none;
+  margin-bottom: 1rem;
+  transition: all 200ms ease;
+}
+
+.calc-input:focus {
+  border-color: var(--calc-primary);
+}
+
+.calc-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: calc(var(--radius) - 4px);
+  font-weight: 600;
+  background: var(--calc-button);
+  color: var(--calc-text);
+  transition: background 200ms ease;
+}
+
+.calc-button:hover { background: var(--calc-button-hover); }
+.calc-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.calc-button-primary { background: var(--calc-primary); color: white; width: 100%; }
+.calc-button-primary:hover { background: var(--calc-primary-dark); }
+.calc-button-danger { background: var(--calc-danger); color: white; }
+.calc-button-undo { background: var(--calc-text-muted); color: white; width: 100%; margin-top: 1rem;}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--calc-border);
+  margin: 1.5rem 0;
+}
+
+.search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Sekcja list */
+.lists-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.list-card {
+  background: var(--calc-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.list-header {
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem;
+  margin-bottom: 0;
+  border-radius: 6px;
+  transition: background 200ms ease;
+}
+.list-header:hover {
+  background: var(--calc-bg);
+}
+
+.task-list {
+  list-style: none;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.task-list.collapsed {
+  display: none;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--calc-bg);
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: opacity 200ms;
+}
+
+.task-item.done .task-text {
+  text-decoration: line-through;
+  color: var(--calc-text-muted);
+}
+.task-item.done {
+  opacity: 0.7;
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-date {
+  font-size: 0.75rem;
+  color: var(--calc-success);
+  margin-top: 0.25rem;
+}
+
+.delete-btn {
+  background: transparent;
+  color: var(--calc-danger);
+  border: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
