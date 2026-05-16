@@ -1,13 +1,46 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { getGameById } from "@/lib/games";
 
-export default async function GameDetailsPage({ params }) {
-  const { id } = await params;
-  const game = getGameById(id);
+export default function GameDetailsPage() {
+  const params = useParams();
+  const id = params.id;
+
+  const [game, setGame] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadGame() {
+      try {
+        const data = await getGameById(id);
+        setGame(data);
+      } catch (err) {
+        console.error(err);
+        setError("Nie udało się pobrać gry.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (id) {
+      loadGame();
+    }
+  }, [id]);
+
+  if (loading) {
+    return <div className="p-10 text-center">Loading game...</div>;
+  }
+
+  if (error) {
+    return <div className="p-10 text-center text-red-600">{error}</div>;
+  }
 
   if (!game) {
-    notFound();
+    return <div className="p-10 text-center">Game not found.</div>;
   }
 
   return (
@@ -19,13 +52,16 @@ export default async function GameDetailsPage({ params }) {
 
         <section className="detailsTop">
           <div className="detailsImages">
-            {game.images.length > 0 ? (
-              game.images.map((_, index) => (
+            {game.images?.length > 0 ? (
+              game.images.map((img, index) => (
                 <img
                   key={index}
-                  src="/no-image.png"
+                  src={img}
                   alt={`${game.title} ${index + 1}`}
                   className="detailsImage"
+                  onError={(e) => {
+                    e.target.src = "/no-image.png";
+                  }}
                 />
               ))
             ) : (
@@ -54,7 +90,7 @@ export default async function GameDetailsPage({ params }) {
             </p>
 
             <p>
-              <strong>Cena:</strong> {game.price_pln.toFixed(2)} PLN
+              <strong>Cena:</strong> {game.price_pln?.toFixed(2)} PLN
             </p>
 
             <p>
@@ -65,10 +101,10 @@ export default async function GameDetailsPage({ params }) {
               <div className="auctionBox">
                 <h2>Aukcja</h2>
                 <p>
-                  <strong>Cena startowa:</strong> {game.auction.starting_price.toFixed(2)} PLN
+                  <strong>Cena startowa:</strong> {game.auction.starting_price?.toFixed(2)} PLN
                 </p>
                 <p>
-                  <strong>Aktualna oferta:</strong> {game.auction.current_bid.toFixed(2)} PLN
+                  <strong>Aktualna oferta:</strong> {game.auction.current_bid?.toFixed(2)} PLN
                 </p>
                 <p>
                   <strong>Najwyższy oferent:</strong> {game.auction.highest_bidder_uid}
@@ -80,8 +116,7 @@ export default async function GameDetailsPage({ params }) {
 
         <section className="descriptionBox">
           <h2>Opis gry</h2>
-
-          {game.description.map((line, index) => (
+          {game.description?.map((line, index) => (
             <p key={index}>{line}</p>
           ))}
         </section>
