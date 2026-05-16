@@ -1,16 +1,27 @@
+"use client";
+
 import Link from "next/link";
 
-export default function GameCard({ game }) {
+export default function GameCard({ game, onBuy }) {
   const imageUrl = game.images?.[0] || "/no-image.png";
   const price = game.price_pln != null ? game.price_pln.toFixed(2) : "—";
+  const isAvailable = game.available !== false;
 
   return (
-    <article className="card">
+    <article
+      className="card"
+      style={{
+        opacity: isAvailable ? 1 : 0.6,
+        filter: isAvailable ? "none" : "grayscale(40%)",
+      }}
+    >
       <img
         src={imageUrl}
         alt={game.title}
         className="cardImage"
-        onError={(e) => { e.target.src = "/no-image.png"; }}
+        onError={(e) => {
+          e.target.src = "/no-image.png";
+        }}
       />
 
       <div className="cardBody">
@@ -34,9 +45,25 @@ export default function GameCard({ game }) {
 
         {game.is_expansion && <p className="expansion">Dodatek</p>}
 
-        <Link href={`/games/${game.id}`} className="detailsButton">
-          Zobacz szczegóły
-        </Link>
+        <div style={{ display: "flex", gap: "10px", marginTop: "12px", flexWrap: "wrap" }}>
+          <Link href={`/games/${game.id}`} className="detailsButton">
+            Zobacz szczegóły
+          </Link>
+
+          <button
+            onClick={() => onBuy(game.id)}
+            disabled={!isAvailable}
+            className="detailsButton"
+            style={{
+              backgroundColor: isAvailable ? "#111" : "#999",
+              color: "#fff",
+              border: "none",
+              cursor: isAvailable ? "pointer" : "not-allowed",
+            }}
+          >
+            {isAvailable ? "Kup teraz" : "Niedostępne"}
+          </button>
+        </div>
       </div>
     </article>
   );

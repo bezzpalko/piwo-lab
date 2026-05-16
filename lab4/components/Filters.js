@@ -2,8 +2,11 @@
 
 import { useMemo, useState } from "react";
 import GameCard from "./GameCard";
+import {
+  buyGameInFirestore,
+} from "@/lib/games";
 
-export default function Filters({ games, types }) {
+export default function Filters({ games, types, onRefresh }) {
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [onlyBaseGames, setOnlyBaseGames] = useState(false);
@@ -23,6 +26,11 @@ export default function Filters({ games, types }) {
       return matchesSearch && matchesType && matchesExpansion;
     });
   }, [games, search, selectedType, onlyBaseGames]);
+
+  async function handleBuy(gameId) {
+    await buyGameInFirestore(gameId);
+    await onRefresh();
+  }
 
   return (
     <>
@@ -65,7 +73,11 @@ export default function Filters({ games, types }) {
       <section className="grid">
         {filteredGames.length > 0 ? (
           filteredGames.map((game) => (
-            <GameCard key={game.id} game={game} />
+            <GameCard
+  key={game.id}
+  game={game}
+  onBuy={handleBuy}
+/>
           ))
         ) : (
           <p>Brak wyników dla podanych filtrów.</p>
