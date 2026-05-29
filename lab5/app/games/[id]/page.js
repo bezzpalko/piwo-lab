@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getGameById, buyGameInFirestore } from "@/lib/games";
+import { useCart } from "@/context/CartContext";
 
 export default function GameDetailsPage() {
   const params = useParams();
@@ -12,6 +13,8 @@ export default function GameDetailsPage() {
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const { addToCart, cart } = useCart();
 
   useEffect(() => {
     async function loadGame() {
@@ -34,7 +37,6 @@ export default function GameDetailsPage() {
   const handleBuy = async () => {
     try {
       await buyGameInFirestore(game.id);
-      // Aktualizujemy stan lokalny, aby zablokować przycisk natychmiast po kliknięciu
       setGame((prev) => ({ ...prev, available: false }));
       alert("Gra została pomyślnie kupiona!");
     } catch (err) {
@@ -56,6 +58,7 @@ export default function GameDetailsPage() {
   }
 
   const isAvailable = game.available !== false;
+  const isInCart = cart.some((item) => item.id === game.id);
 
   return (
     <main className="detailsPage">
@@ -111,23 +114,40 @@ export default function GameDetailsPage() {
               <strong>Rodzaj:</strong> {game.is_expansion ? "Dodatek" : "Gra podstawowa"}
             </p>
 
-            <button
-              onClick={handleBuy}
-              disabled={!isAvailable}
-              className="detailsButton"
-              style={{
-                backgroundColor: isAvailable ? "#111" : "#999",
-                color: "#fff",
-                border: "none",
-                padding: "10px 20px",
-                cursor: isAvailable ? "pointer" : "not-allowed",
-                marginTop: "15px",
-                borderRadius: "4px",
-                display: "block"
-              }}
-            >
-              {isAvailable ? "Kup teraz" : "Niedostępne"}
-            </button>
+            {/* Kontener dla przycisków, żeby wyświetlały się obok siebie w jednym rzędzie */}
+            <div style={{ display: "flex", gap: "10px", marginTop: "15px", flexWrap: "wrap" }}>
+              <button
+                onClick={handleBuy}
+                disabled={!isAvailable}
+                className="detailsButton"
+                style={{
+                  backgroundColor: isAvailable ? "#111" : "#999",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: isAvailable ? "pointer" : "not-allowed",
+                  borderRadius: "4px",
+                }}
+              >
+                {isAvailable ? "Kup teraz" : "Niedostępne"}
+              </button>
+
+              <button
+                onClick={() => addToCart(game)}
+                disabled={!isAvailable || isInCart}
+                className="detailsButton"
+                style={{
+                  backgroundColor: isInCart ? "#444" : "#28a745",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: (!isAvailable || isInCart) ? "not-allowed" : "pointer",
+                  borderRadius: "4px",
+                }}
+              >
+                {isInCart ? "W koszyku" : "Dodaj do koszyka"}
+              </button>
+            </div>
 
             {game.auction && (
               <div className="auctionBox" style={{ marginTop: "20px" }}>

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 import {
   logout,
   loginWithGoogle,
@@ -11,6 +13,7 @@ import {
 
 export default function Header() {
   const { user, loading } = useAuth();
+  const { cart } = useCart();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,16 +62,39 @@ export default function Header() {
   return (
     <header className="header">
       <div className="container">
-        <h1>Board Games Market</h1>
-        <p>Przeglądanie, wyszukiwanie i filtrowanie gier planszowych</p>
+        
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <h1 style={{ margin: 0 }}>Board Games Market</h1>
+            </Link>
+            <p style={{ margin: "5px 0 0 0" }}>Przeglądanie, wyszukiwanie i filtrowanie gier planszowych</p>
+          </div>
 
-        <div style={{ marginTop: "1rem" }}>
+          <Link 
+            href="/cart" 
+            style={{ 
+              backgroundColor: '#ff9800', 
+              border: 'none', 
+              color: '#fff', 
+              padding: "10px 15px", 
+              borderRadius: "5px", 
+              textDecoration: "none", 
+              fontWeight: "bold",
+              display: "inline-block"
+            }}
+          >
+            Koszyk ({cart.length})
+          </Link>
+        </div>
+
+        <div style={{ marginTop: "1.5rem" }}>
           {loading ? (
             <span>Ładowanie...</span>
           ) : user ? (
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
               <span>Zalogowano jako: {user.displayName || user.email}</span>
-              <button onClick={handleLogout}>Wyloguj</button>
+              <button onClick={handleLogout} style={{ padding: "5px 10px", cursor: "pointer" }}>Wyloguj</button>
             </div>
           ) : (
             <div
@@ -84,6 +110,7 @@ export default function Header() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
               />
 
               <input
@@ -91,16 +118,20 @@ export default function Header() {
                 placeholder="Hasło"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
               />
 
-              <button onClick={handleEmailLogin}>Zaloguj</button>
-              <button onClick={handleEmailRegister}>Zarejestruj</button>
-              <button onClick={handleGoogleLogin}>Zaloguj przez Google</button>
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                <button onClick={handleEmailLogin} style={{ padding: "5px 10px", cursor: "pointer" }}>Zaloguj</button>
+                <button onClick={handleEmailRegister} style={{ padding: "5px 10px", cursor: "pointer" }}>Zarejestruj</button>
+                <button onClick={handleGoogleLogin} style={{ padding: "5px 10px", cursor: "pointer" }}>Google</button>
+              </div>
 
-              {error && <p style={{ color: "red" }}>{error}</p>}
+              {error && <p style={{ color: "red", margin: 0 }}>{error}</p>}
             </div>
           )}
         </div>
+
       </div>
     </header>
   );

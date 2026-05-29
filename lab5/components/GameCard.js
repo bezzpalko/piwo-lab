@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 export default function GameCard({ game, onBuy }) {
   const imageUrl = game.images?.[0] || "/img/no-image.png";
   const price = game.price_pln != null ? game.price_pln.toFixed(2) : "—";
   const isAvailable = game.available !== false;
+
+  const { addToCart, cart } = useCart();
+  const isInCart = cart.some((item) => item.id === game.id);
 
   return (
     <article
@@ -62,6 +66,20 @@ export default function GameCard({ game, onBuy }) {
             }}
           >
             {isAvailable ? "Kup teraz" : "Niedostępne"}
+          </button>
+
+          <button
+            onClick={() => addToCart(game)}
+            disabled={!isAvailable || isInCart}
+            className="detailsButton"
+            style={{
+              backgroundColor: isInCart ? "#444" : "#28a745",
+              color: "#fff",
+              border: "none",
+              cursor: (!isAvailable || isInCart) ? "not-allowed" : "pointer",
+            }}
+          >
+            {isInCart ? "W koszyku" : "Do koszyka"}
           </button>
         </div>
       </div>

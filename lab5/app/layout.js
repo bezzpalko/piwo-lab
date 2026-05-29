@@ -1,5 +1,6 @@
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata = {
   title: "Board Games Market",
@@ -11,7 +12,9 @@ export default function RootLayout({ children }) {
     <html lang="pl">
       <body>
         <AuthProvider>
-          {children}
+          <CartProvider>
+            {children}
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
