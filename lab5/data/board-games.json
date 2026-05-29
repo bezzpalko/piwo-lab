@@ -4,8 +4,8 @@
       "id": 1,
       "title": "Osadnicy z Catanu",
       "images": [
-        "img/catan.webp",
-        "img/catan2.webp"
+        "/img/catan.webp",
+        "/img/catan2.webp"
       ],
       "description": [
         "Klasyczna gra ekonomiczno-strategiczna.",
@@ -30,7 +30,7 @@
       "id": 2,
       "title": "Osadnicy z Catanu: Kupcy i Barbarzyńcy",
       "images": [
-        "img/catan-exp.webp"
+        "/img/catan-exp.webp"
       ],
       "description": [
         "Dodatek do podstawowej wersji Osadników z Catanu.",
@@ -51,8 +51,8 @@
       "id": 3,
       "title": "Gloomhaven",
       "images": [
-        "img/gloomhaven.webp",
-        "img/gloomhaven2.webp"
+        "/img/gloomhaven.webp",
+        "/img/gloomhaven2.webp"
       ],
       "description": [
         "Epicka, kooperacyjna gra przygodowa w klimacie dark fantasy.",
@@ -96,7 +96,7 @@
       "id": 5,
       "title": "Wsiąść do Pociągu: Europa",
       "images": [
-        "img/pociagi-europa/webp"
+        "/img/pociagi-europa.webp"
       ],
       "description": [
         "Buduj połączenia kolejowe pomiędzy europejskimi miastami.",
@@ -121,7 +121,7 @@
       "id": 6,
       "title": "Wsiąść do Pociągu: Indie i Szwajcaria",
       "images": [
-        "img/pociagi-szwajcaria.webp"
+        "/img/pociagi-szwajcaria.webp"
       ],
       "description": [
         "Dwustronny dodatek mapowy do serii Wsiąść do Pociągu.",
@@ -142,8 +142,8 @@
       "id": 7,
       "title": "Dixit",
       "images": [
-        "img/dixit.webp",
-        "img/dixit2.webp"
+        "/img/dixit.webp",
+        "/img/dixit2.webp"
       ],
       "description": [
         "Kreatywna gra towarzyska oparta na skojarzeniach.",
@@ -164,7 +164,7 @@
       "id": 8,
       "title": "Dixit: Odyssey",
       "images": [
-        "img/dixit-odyseja.webp"
+        "/img/dixit-odyseja.webp"
       ],
       "description": [
         "Samodzielny dodatek do gry Dixit.",
@@ -349,7 +349,7 @@
       "id": 17,
       "title": "Nemesis",
       "images": [
-        "img/nemesis.webp"
+        "/img/nemesis.webp"
       ],
       "description": [
         "Klimatyczna gra survivalowa w kosmosie inspirowana filmem Obcy.",

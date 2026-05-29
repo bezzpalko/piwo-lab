@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 export default function GameCard({ game, onBuy }) {
-  const imageUrl = game.images?.[0] || "/no-image.png";
+  const imageUrl = game.images?.[0] || "/img/no-image.png";
   const price = game.price_pln != null ? game.price_pln.toFixed(2) : "—";
   const isAvailable = game.available !== false;
 
@@ -20,7 +20,7 @@ export default function GameCard({ game, onBuy }) {
         alt={game.title}
         className="cardImage"
         onError={(e) => {
-          e.target.src = "/no-image.png";
+          e.target.src = "/img/no-image.png";
         }}
       />
 

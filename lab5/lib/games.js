@@ -16,9 +16,11 @@ const BASE_IMAGE_URL = "https://szandala.github.io/piwo-api/";
 const fixGameImages = (game) => ({
   ...game,
   images:
-    game.images?.map((img) =>
-      img.startsWith("http") ? img : BASE_IMAGE_URL + img
-    ) || [],
+    game.images?.map((img) => {
+      if (img.startsWith("http")) return img;
+      
+      return img.startsWith("/") ? img : "/" + img;
+    }) || [],
 });
 
 export async function getAllGamesFromFirestore() {
