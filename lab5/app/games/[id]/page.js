@@ -137,7 +137,7 @@ export default function GameDetailsPage() {
                 disabled={!isAvailable || isInCart}
                 className="detailsButton"
                 style={{
-                  backgroundColor: isInCart ? "#444" : "#28a745",
+                  backgroundColor: isInCart ? "#444" : "#1d0c75",
                   color: "#fff",
                   border: "none",
                   padding: "10px 20px",

@@ -59,7 +59,7 @@ export default function GameCard({ game, onBuy }) {
             disabled={!isAvailable}
             className="detailsButton"
             style={{
-              backgroundColor: isAvailable ? "#111" : "#999",
+              backgroundColor: isAvailable ? "#750c5e" : "#999",
               color: "#fff",
               border: "none",
               cursor: isAvailable ? "pointer" : "not-allowed",
@@ -73,7 +73,7 @@ export default function GameCard({ game, onBuy }) {
             disabled={!isAvailable || isInCart}
             className="detailsButton"
             style={{
-              backgroundColor: isInCart ? "#444" : "#28a745",
+              backgroundColor: isInCart ? "#444" : "#750c5e",
               color: "#fff",
               border: "none",
               cursor: (!isAvailable || isInCart) ? "not-allowed" : "pointer",

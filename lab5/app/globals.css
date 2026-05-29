@@ -26,7 +26,7 @@ img {
 }
 
 .header {
-  background: #2f3640;
+  background: hsl(249, 31%, 44%);
   color: white;
   padding: 32px 0;
   margin-bottom: 24px;
@@ -105,11 +105,11 @@ img {
 .price {
   font-size: 20px;
   font-weight: bold;
-  color: #009432;
+  color: #1d0c75;
 }
 
 .expansion {
-  color: #e17055;
+  color: #1d0c75;
   font-weight: bold;
 }
 
@@ -117,7 +117,7 @@ img {
   display: inline-block;
   margin-top: 12px;
   padding: 10px 16px;
-  background: #0984e3;
+  background: #1d0c75;
   color: white;
   border-radius: 8px;
 }
@@ -129,7 +129,7 @@ img {
 .backLink {
   display: inline-block;
   margin-bottom: 20px;
-  color: #0984e3;
+  color: #1d0c75;
   font-weight: bold;
 }
 

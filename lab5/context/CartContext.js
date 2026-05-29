@@ -8,7 +8,6 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Завантажуємо кошик з пам'яті браузера при першому рендері
   useEffect(() => {
     const savedCart = localStorage.getItem("board_game_cart");
     if (savedCart) {
@@ -17,7 +16,6 @@ export function CartProvider({ children }) {
     setIsLoaded(true);
   }, []);
 
-  // Зберігаємо кошик у пам'ять при кожній зміні
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("board_game_cart", JSON.stringify(cart));
@@ -26,7 +24,6 @@ export function CartProvider({ children }) {
 
   const addToCart = (game) => {
     setCart((prevCart) => {
-      // Перевіряємо, чи гри ще немає в кошику, щоб не додати двічі
       if (prevCart.some((item) => item.id === game.id)) return prevCart;
       return [...prevCart, game];
     });

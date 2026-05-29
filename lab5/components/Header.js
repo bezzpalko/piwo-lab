@@ -74,7 +74,7 @@ export default function Header() {
           <Link 
             href="/cart" 
             style={{ 
-              backgroundColor: '#ff9800', 
+              backgroundColor: '#750c5e', 
               border: 'none', 
               color: '#fff', 
               padding: "10px 15px", 
