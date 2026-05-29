@@ -1,7 +1,7 @@
 {
   "apphosting": {
     "backendId": "piwo-board-games-market",
-    "rootDir": "/",
+    "rootDir": "/lab5",
     "ignore": [
       "node_modules",
       ".git",
